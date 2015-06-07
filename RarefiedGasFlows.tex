@@ -1,0 +1,72 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% 	``LBM for Rarefied Gas Flows''
+% 	Gerasimos Chourdakis, 2015
+% 	Seminar Lattice Boltzmann Methods: Theory, Implementation 
+%		and Applications
+%	Technische Universitaet Muenchen
+%	(Based on the provided template)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,pdftex]{scrartcl}
+
+\usepackage[utf8]{inputenc}   
+\usepackage{graphicx}
+
+% Packages not included by the template
+\usepackage[bookmarks=true,pdfborder={0 0 0}]{hyperref} % hyperlinks in pdf
+\usepackage{url} % format hyperlinks
+
+\graphicspath{{graphics/}}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 	Paper title
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{LBM for Rarefied Gas Flows}
+\subtitle{Seminar Lattice Boltzmann Methods:\\Theory, Implementation and Applications}
+\date{June 11, 2015}
+\author{
+Gerasimos Chourdakis\\
+Fakul\"at f\"ur Informatik\\Technische Universit\"at M\"unchen\\
+Email: \href{mailto:gerasimos.chourdakis@tum.de}{gerasimos.chourdakis@tum.de} 
+}
+
+\maketitle
+
+% no page number on first page
+\thispagestyle{empty}
+
+% include abstract
+\input{sections/abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 	Sections, Subsections,...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{sections/introduction}
+
+\input{sections/flow_regimes}
+
+\input{sections/continuum_assumption}
+
+\input{sections/slip_lbm}
+
+\input{sections/transition_lbm}
+
+\input{sections/tochi_model}
+
+\input{sections/conclusion}
+
+% Remove this at the final version!
+\nocite{*}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
+
+

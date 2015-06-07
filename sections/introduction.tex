@@ -1,0 +1,28 @@
+\section{Introduction}
+If someone tried to sell a Computational Fluid Dynamics software, based on
+the Lattice Boltzmann Method to, e.g., a car manufacturing industry, he/she 
+would probably have to face the argument ``but we successfully use a
+software that solves the Navier-Stokes equations for many years now!''.
+Indeed, the Navier-Stokes equations are the main tool of the classical approach
+to the CFD. Yet, they bring with them some important \textit{assumptions}, that restrict
+their usage in a limited range of applications. The fundamental assumption they
+pose is the \textit{continuity of the matter}. In the case of the car manufacturer,
+that has to solve problems mainly in the scales we can see and touch, the matter
+appears to be continuous, so the application of the NSE is usually legit. 
+
+Modern engineers though need to design devices far smaller than cars, in which
+fluids or gases need e.g. to flow through pipes smaller than hair. Such devices
+are for example micropumps, micromotors and other Micro-Electro-Mechanical 
+Systems~\cite{Karniadakis_Microflows}. Micro- and nano-flows are also faced 
+in Chemical Engineering and relevant fields, in devices like microreactors~\cite{Neumann2012},
+particle separators~\cite{Karniadakis_Microflows} or in materials with nanopores, 
+like in the shale-gas extraction process (see e.g.~\cite{Ren2015, Zhang2015}). 
+The continuity assumption breaks down in
+such scales, as e.g. the molecules of the used gases are so rare that interact
+mainly with the walls and less with other particles. The same holds also for
+very low-pressure scenarios as in aero-astronautics applications~\cite{Toschi2005}.
+
+In such problems, LBM can be applied, though the Bhatnagar-Gross-Krook, single-relaxation-time approach
+poses some problems because of the rare collisions of the molecules. Various
+modifications have been proposed to solve these problems and some of them are 
+going to be presented in this work.
