@@ -1,2 +1,49 @@
 \section{The LBM in the transition flow regime}
-Lorem ipsum.
+In a bounded system, the mean free path of the molecules near the walls is
+shorter, because the molecules collide both with other gas molecules and the solid.
+For hard-sphere gases, the bulk viscosity is given by the
+Chapman-Enskog theory of dilute gases as:
+\begin{equation}
+ \mu_0 = \frac{5}{6} \sqrt{\frac{2\pi k T}{m}} \rho \lambda \approx 0.49 \rho \bar{c} \lambda
+ \label{eq:viscosity_MFP}
+\end{equation}
+where $\bar{c}$ is the mean thermal speed~\cite{Michalis2010}. 
+From equation~\ref{eq:viscosity_MFP} it is clear that a shorter MFP will decrease the viscosity.
+This change of viscosity in the Knudsen layer makes it non-constant and there is a need
+to define an \textit{effective viscosity}. Michalis et al.~\cite{Michalis2010} propose
+and verify the following form for this:
+\begin{equation}
+ \mu_\mathrm{e} = \mu_0 \frac{1}{1 + \alpha \mathrm{Kn}}
+\end{equation}
+and they calculate the Bosanquet parameter $\alpha=2$ for a wide range of $\mathrm{Kn}$.
+The \textit{effective mean free path} is then given by~\cite{Li2011}:
+\begin{equation}
+ \lambda_\mathrm{e} = \frac{\mu_\mathrm{e}}{p} \cdot \sqrt{\frac{\pi R T}{2}}
+\end{equation}
+
+In the transient flow regime, it has been reported that first-order slip velocity
+models do not reproduce the observed results very accurately~\cite{Barber2006}.
+For this, various higher-order models have been proposed~\cite{Zhang2012}.
+Various authors (e.g.~\cite{Li2011, Neumann2012}) use a general second-order
+slip-velocity boundary condition:
+\begin{equation}
+ U_\mathrm{slip} = A_1 \sigma_\nu \lambda \frac{\partial u}{\partial y} \Big|_\mathrm{wall} - A_2 \lambda^2 \frac{\partial^2 u}{\partial y^2} \Big|_\mathrm{wall} \textrm{ , \ } \sigma_\nu = (2 - \sigma)/\sigma
+  \label{eq:slip2}
+ \end{equation}
+There are various suggestions for the slip coefficients $A_1$, $A_2$ in the literature
+and extended tables are provided e.g. by Zhang et al.~\cite{Zhang2012}.
+The same equation with different parameters $B1$, $B2$ can be applied also for the effective
+mean path $\lambda_\mathrm{e}$.
+
+As in the slip regime, Multiple-Relaxation-Time LBM is usually suggested. Li et al. set:
+\begin{equation}
+ \tau_s = \frac{1}{2} + \sqrt{\frac{6}{\pi}} \frac{N \mathrm{Kn}}{(1+\alpha \mathrm{Kn})} \textrm{ , \ } N=H/\delta_\mathrm{x}
+\end{equation}
+\begin{equation}
+ \tau_q = \frac{1}{2} + \frac{3 + 4 \pi \tilde{\tau}_s^2 B_2}{16 \tilde{\tau}_s } \textrm{ , \ } \tilde{\tau}_s = \tau_s - 0.5
+\end{equation}
+For the diffusive bounce-back boundary conditions, in analogy to eq.\,\ref{eq:betaBD},
+$\beta$ is chosen as~\cite{Li2011}:
+\begin{equation}
+ \beta = \frac{1}{1 + B_1 \sigma_\nu \sqrt{\pi / 6}}
+\end{equation}

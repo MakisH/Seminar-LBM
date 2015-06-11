@@ -1,2 +1,136 @@
 \section{Extending the LBM to the slip flow regime}
-Lorem ipsum.
+The lattice Boltzmann BGK model with bounce-back boundary conditions has been
+used to simulate pressure-driven microchannel flows because of their simplicity
+and low computational cost. It is, though, discussed that this approach has some
+problems: the boundary conditions used depend on the viscosity, the ``slip-velocity''
+observed is actually a numerical artifact (as it depends on the grid resolution)
+and it is constant at the walls, without
+depending on the Knudsen number~\cite{Verhaeghe2009}. Various alternative
+approaches have been proposed in order to deal with these problems, using a
+Two-Relaxation-Time~\cite{Norouzi2015} or a Multiple-Relaxation-Time~\cite{Verhaeghe2009} collision operator, various slip
+boundary conditions~\cite{Zhang2012} and other ideas like virtual-wall collisions~\cite{Toschi2005}.
+
+\subsection{Multiple-Relaxation-Time}
+Verhaeghe et al.~\cite{Verhaeghe2009} present some deficiencies of the Single-Relaxation-Time BGK approximation
+with bounce-back boundary conditions, noting that it mainly does not have enough
+freedom to adjust higher-order discretization errors. They
+also show that this approach fails qualitatively for a 
+microchannel flow of $\mathrm{Kn}=0.194$, compared to the Direct Simulation Monte Carlo results.
+In order to deal with these problems, they successfully use a MRT collision operator,
+something that also other authors report~\cite{Li2011, Neumann2012, Norouzi2015}.
+
+We remind here that the general form of the lattice Boltzmann equation is:
+\begin{equation}
+ \mathbf{f}(\mathbf{r}_j + \mathbf{c}\delta_\mathrm{t}, t+\delta_\mathrm{t}) = \mathbf{f}(\mathbf{r}_j, t) + \mathbf{\Omega}[\mathbf{f}(\mathbf{r}_j, t)] + \mathbf{F}(\mathbf{r}_j, t)
+\end{equation}
+where $\mathbf{f}$ is the vector of the particle distribution functions in each direction, $\mathbf{r}_j$ the lattice,
+$\mathbf{c}$ the discrete velocity set of the particles, $\mathbf{\Omega}$ the collision operator
+and $\mathbf{F}$ the external forcing term. In the MRT case, the collision operator
+is:
+\begin{equation}
+ \mathbf{\Omega} = - \mathrm{M}^{-1} \cdot \mathrm{S} \cdot [\mathbf{m} - \mathbf{m}^\mathrm{(eq)}] 
+ \textrm{ , where }
+ \mathbf{m} = \mathrm{M} \cdot \mathbf{f}
+\end{equation}
+where $\mathbf{m}$ is the moment space (and $\mathbf{m}^\mathrm{(eq)}$ their equilibria), $\mathrm{S}$ a positive-definite matrix of
+the relaxation rates and $\mathrm{M}$ the matrix that transforms $\mathbf{f}$ to
+their moments~\cite{Verhaeghe2009}.
+In this formulation, every moment relaxes with a different rate and 
+with appropriate selection of the $\mathrm{S}$, the MRT method can be reduced to a TRT scheme
+or the BGK approximation.
+
+
+\subsection{Boundary conditions}
+The analytic solution of the lattice Boltzmann equation for the incompressible Poiseuille flow
+is, in dimensionless form:
+\begin{equation}
+ \tilde{u}(\tilde{y}) = 4\tilde{y}(1-\tilde{y}) + \tilde{U}_\mathrm{slip}
+\end{equation}
+where $\tilde{u} := (u + G\delta_\mathrm{t} / 2) / U_\mathrm{max}$,
+$G := |\nabla p / \rho|$ (acceleration due to a constant pressure gradient),
+$\tilde{U}_\mathrm{slip} := U_\mathrm{slip} / U_\mathrm{max}$
+and $\tilde{y} := (j-1/2)/N_\mathrm{y}$. $N_\mathrm{y}$ is the number of cells per width-direction,
+identified by the index $j$. The slip velocity term depends on the boundary
+conditions and the elements $\tau_i$ of the relaxation matrix $\mathrm{S}$~\cite{Verhaeghe2009}.
+
+The theory of the pressure-driven flow through a long microchannel requires that, on the wall,
+the perpendicular velocity term vanishes and the tangential term is given by a velocity model
+that, in the slip regime, can be of first-order, as e.g.:
+\begin{equation}
+ u|_\mathrm{wall} = \sigma \mathrm{Kn} H \partial_y u_\mathrm{wall} \textrm{, \ } \sigma := (2 - \sigma_\nu)/\sigma_\nu 
+ \label{eq:slip_1order}
+\end{equation}
+where $\sigma_\nu \in (0,1]$ is the tangential momentum accommodation coefficient~\cite{Verhaeghe2009}. 
+Verhaeghe et al.\@ take $\sigma_\nu = 1$ and Barber and Emerson~\cite{Barber2006} provide more details on the TMAC and its estimation. 
+
+In the corresponding literature, the following boundary conditions may be found:
+bounce-back, diffusive, specular reflective and combinations of them~\cite{Verhaeghe2009}.
+
+\subsubsection{Bounce-back boundary conditions}
+According to these conditions, that correspond to very smooth surfaces, when the molecules collide with the walls, their
+momentum is reversed:
+\begin{equation}
+ f_i(t_{n+1}) = f_{\bar{i}}^*(t_n)
+\end{equation}
+In this context, the slip velocity can be set as:
+\begin{equation}
+ U_\mathrm{slip}^\mathrm{B} = \frac{1}{4} \Big(\frac{8}{\tau_s} - \frac{8-\tau_s}{2-\tau_s} \Big) G \delta_\mathrm{t}
+\end{equation}
+where $\tau_s$, $\tau_q$ are the relaxation rates for the stresses and the energy fluxes, respectively.
+For a boundary parallel to the lattice axis, $U_\mathrm{slip}^\mathrm{B} = 0$ if
+and only if:
+\begin{equation}
+ \tau_q = \frac{8(2-\tau_s)}{(8-\tau_s)}
+\end{equation}
+
+\subsubsection{Diffusive boundary conditions}
+In the case of non-smooth surfaces, the molecules are reflected to random directions
+(diffusive reflection). The diffusive boundary conditions set:
+\begin{equation}
+ f_i = \frac{\sum_{\mathbf{c}_k} | \mathbf{c}_k \cdot \hat{\mathbf{n}}| f_k^* }
+ { \sum_{\mathbf{c}_k} | \mathbf{c}_k \cdot \hat{\mathbf{n}} | f_k^\mathrm{(eq)}(\rho_\mathrm{wall}, \mathbf{u}_\mathrm{wall})  }
+ f_{\bar{i}}^{\mathrm{(eq)}}(\rho_\mathrm{wall}, \mathbf{u}_\mathrm{wall}) := f_i^\mathrm{D} \textrm{, \ } c_k \cdot \hat{\mathbf{n}} < 0
+\end{equation}
+where $\hat{\mathbf{n}}$ is the normal to the wall unit vector and $\rho_\mathrm{wall}$ and $\mathbf{u}_\mathrm{wall}$ are the density
+and velocity at the wall, respectively. Using these boundary conditions, we get for the slip velocity:
+\begin{equation}
+ U_\mathrm{slip}^\mathrm{D} = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2}N_\mathrm{y} G \delta_\mathrm{t} = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{H G}{c} \textrm{, \ } c:=\delta_\mathrm{x} / \delta_\mathrm{t}
+\end{equation}
+where $H$ is the height of the microchannel.
+
+\subsubsection{Diffusive bounce-back boundary conditions}
+Combining the previous two boundary conditions, we get the following general form:
+\begin{equation}
+ f_i(t_{n+1}) = \beta f_{\bar{i}}^{*} (t_n) + (1-\beta)f_i^\mathrm{D}(t_n) \textrm{, \ } \beta \in [0,1]
+\end{equation}
+\begin{equation}
+ U_\mathrm{slip}^\mathrm{BD} = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{(1-\beta)}{(1+\beta)} N_\mathrm{y} G \delta_\mathrm{t}
+ = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{(1-\beta)}{(1+\beta)} \frac{H G}{c}
+\end{equation}
+that can be reduced in one of the previous pure diffusive or bounce-back boundary conditions.
+Verhaeghe et al.~\cite{Verhaeghe2009} show that, assuming the first-order slip velocity of eq.\,\ref{eq:slip_1order} with $U_\mathrm{slip}^\mathrm{B} = 0$ 
+it holds for the $\beta$:
+\begin{equation}
+ \beta = \frac{3\mu - \mathrm{Kn} H c \bar{\rho}_\mathrm{out} }{3\mu + \mathrm{Kn} H c \bar{\rho}_\mathrm{out} }
+ \label{eq:betaBD}
+\end{equation}
+In the equation~\ref{eq:betaBD}, an assumption is hidden: the viscosity $\mu$ must be constant, something that
+doesn't hold in the transition regime. 
+Verhaeghe et al. present nice results for the slip regime using MRT, the first-order model of eq.\,\ref{eq:slip_1order} and DBB boundary conditions, although
+they point out that this is not valid in higher Knudsen numbers.
+
+\subsubsection{Specular reflective bounce-back boundary conditions}
+The specular reflective boundary conditions (also known as ``free-slip'') maintain the
+tangential momentum and reverse the perpendicular one. Combining them with the bounce-back boundary
+conditions we get similarly:
+\begin{equation}
+ U_\mathrm{slip}^\mathrm{BR} = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{(1-\beta)}{\beta} N_\mathrm{y} G \delta_\mathrm{t}
+ = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{(1-\beta)}{\beta} \frac{H G}{c}
+\end{equation}
+
+
+
+
+
+
+

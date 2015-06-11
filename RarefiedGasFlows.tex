@@ -17,6 +17,7 @@
 % Packages not included by the template
 \usepackage[bookmarks=true,pdfborder={0 0 0}]{hyperref} % hyperlinks in pdf
 \usepackage{url} % format hyperlinks
+\usepackage{amsmath} % provides the eqnarray environment and other features
 
 \graphicspath{{graphics/}}
 
@@ -51,8 +52,6 @@ Email: \href{mailto:gerasimos.chourdakis@tum.de}{gerasimos.chourdakis@tum.de}
 
 \input{sections/flow_regimes}
 
-\input{sections/continuum_assumption}
-
 \input{sections/slip_lbm}
 
 \input{sections/transition_lbm}
@@ -61,8 +60,6 @@ Email: \href{mailto:gerasimos.chourdakis@tum.de}{gerasimos.chourdakis@tum.de}
 
 \input{sections/conclusion}
 
-% Remove this at the final version!
-\nocite{*}
 
 \bibliographystyle{plain}
 \bibliography{references}
