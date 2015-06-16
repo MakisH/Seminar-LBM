@@ -21,18 +21,18 @@ This is defined as the ratio of the MFP to the characteristic length $L_0$ of th
  \mathrm{Kn} := \frac{\lambda}{L_0}
  \label{eq:Kn_def}
 \end{equation}
-The length $L_0$ can also be a limit above which very large variations of a macroscopic
-quantity $\Phi_0$ may be observed and we can also write:
-\begin{equation}
- \mathrm{Kn} \approx \frac{\lambda}{\Phi_0} \cdot \Big|\frac{\mathrm{d}\Phi_0}{\mathrm{d}L_0}\Big|
- \label{eq:Kn_phi}
-\end{equation}
+% The length $L_0$ can also be a limit above which very large variations of a macroscopic
+% quantity $\Phi_0$ (like the gas density, pressure or temperature) may be observed and we can also write~\cite{Zhang2012}:
+% \begin{equation}
+%  \mathrm{Kn} \approx \frac{\lambda}{\Phi_0} \cdot \Big|\frac{\mathrm{d}\Phi_0}{\mathrm{d}L_0}\Big|
+%  \label{eq:Kn_phi}
+% \end{equation}
 In complex geometries, a local Knudsen number can be chosen to solve the problem
 of deciding about the characteristic length.
-Equation~\ref{eq:Kn_phi} gives a good intuition for the relevance of the Knudsen number with
-the continuity assumption, as in ``continuous'' scenarios (small $\mathrm{Kn}$) we would expect small
-variations of macroscopic quantities. We can also relate the
-Knudsen number to the Mach and Reynolds numbers:
+% Equation~\ref{eq:Kn_phi} gives a good intuition for the relevance of the Knudsen number with
+% the continuity assumption, as in ``continuous'' scenarios (small $\mathrm{Kn}$) we would expect small
+% variations of macroscopic quantities. 
+We can also relate the Knudsen number to the Mach and Reynolds numbers:
 \begin{equation}
  \mathrm{Kn} = \frac{\lambda}{L_0} \cdot \sqrt{\frac{\pi \gamma}{2}} \cdot \frac{\mathrm{Ma}}{\mathrm{Re}}
  \label{eq:Kn_Ma}
@@ -55,7 +55,10 @@ The other part of the range, where $\mathrm{Kn}>10$, corresponds to the
 with each other.
 In between, the gas flow may belong to the \textit{slip-flow regime}
 ($10^{-2} < \mathrm{Kn} < 10^{-1} $) or to the \textit{transition regime}
-($10^{-1} < \mathrm{Kn} < 10 $). 
+($10^{-1} < \mathrm{Kn} < 10 $). Navier-Stokes and other continuous methods
+may be applied in these regimes only using special boundary conditions or
+higher-order extensions, like the Burnett equations or other models,
+that usually derive from a truncated Chapman-Enskog expansion of the LBE~\cite{Zhang2012}.
 
 Which regimes are mainly of practical interest? The term \textit{Rarefied Gas Flows} 
 usually refers to the slip-flow and the
@@ -79,8 +82,11 @@ The Navier-Stokes equations describe the conservation of mass and momentum in
 the system. Adding the conservation of energy, we have the Navier-Stokes-Fourier
 equations that require the following assumptions~\cite{Barber2006}:
 \begin{description}
- \item[Newtonian Framework] The characteristic velocity has to be much smaller than the speed of light.
+ \item[Newtonian Framework] The fluid motion has to be unrelativistic, i.e. 
+ the characteristic velocity has to be much smaller than the speed of light.
  This assumption is usually satisfied in the problems of our interest.
+ It wouldn't hold in the case of the flow of e.g. high-energy particles
+ or the motion of stars/galaxies.
  \item[Continuum approximation] The fluid is infinitely divisible. This means that
  properties like the pressure, the velocity and the shear stress can be defined locally as averages between
  neighboring cells of a mesh. This assumption depends on the Knudsen number and it mainly does \textit{not} hold in our problems.

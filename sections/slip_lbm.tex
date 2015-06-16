@@ -57,11 +57,12 @@ The theory of the pressure-driven flow through a long microchannel requires that
 the perpendicular velocity term vanishes and the tangential term is given by a velocity model
 that, in the slip regime, can be of first-order, as e.g.:
 \begin{equation}
- u|_\mathrm{wall} = \sigma \mathrm{Kn} H \partial_y u_\mathrm{wall} \textrm{, \ } \sigma := (2 - \sigma_\nu)/\sigma_\nu 
+ u|_\mathrm{wall} = \sigma \mathrm{Kn} L_0 \partial_y u_\mathrm{wall} \textrm{, \ } \sigma := (2 - \sigma_\nu)/\sigma_\nu 
  \label{eq:slip_1order}
 \end{equation}
 where $\sigma_\nu \in (0,1]$ is the tangential momentum accommodation coefficient~\cite{Verhaeghe2009}. 
 Verhaeghe et al.\@ take $\sigma_\nu = 1$ and Barber and Emerson~\cite{Barber2006} provide more details on the TMAC and its estimation. 
+In the case of a long microchannel, with length/height ratio $L/H \gg 1$, the characteristic length is set as $L_0 = H$.
 
 In the corresponding literature, the following boundary conditions may be found:
 bounce-back, diffusive, specular reflective and combinations of them~\cite{Verhaeghe2009}.
@@ -72,7 +73,7 @@ momentum is reversed:
 \begin{equation}
  f_i(t_{n+1}) = f_{\bar{i}}^*(t_n)
 \end{equation}
-In this context, the slip velocity can be set as:
+In this context, the slip velocity can be set as~\cite{Verhaeghe2009}:
 \begin{equation}
  U_\mathrm{slip}^\mathrm{B} = \frac{1}{4} \Big(\frac{8}{\tau_s} - \frac{8-\tau_s}{2-\tau_s} \Big) G \delta_\mathrm{t}
 \end{equation}
@@ -89,14 +90,14 @@ In the case of non-smooth surfaces, the molecules are reflected to random direct
 \begin{equation}
  f_i = \frac{\sum_{\mathbf{c}_k} | \mathbf{c}_k \cdot \hat{\mathbf{n}}| f_k^* }
  { \sum_{\mathbf{c}_k} | \mathbf{c}_k \cdot \hat{\mathbf{n}} | f_k^\mathrm{(eq)}(\rho_\mathrm{wall}, \mathbf{u}_\mathrm{wall})  }
- f_{\bar{i}}^{\mathrm{(eq)}}(\rho_\mathrm{wall}, \mathbf{u}_\mathrm{wall}) := f_i^\mathrm{D} \textrm{, \ } c_k \cdot \hat{\mathbf{n}} < 0
+ f_{\bar{i}}^{\mathrm{(eq)}}(\rho_\mathrm{wall}, \mathbf{u}_\mathrm{wall}) := f_i^\mathrm{D} \textrm{, \ } \mathbf{c}_k \cdot \hat{\mathbf{n}} < 0
 \end{equation}
-where $\hat{\mathbf{n}}$ is the normal to the wall unit vector and $\rho_\mathrm{wall}$ and $\mathbf{u}_\mathrm{wall}$ are the density
-and velocity at the wall, respectively. Using these boundary conditions, we get for the slip velocity:
+where $\hat{\mathbf{n}}$ is the normal to the wall unit vector, $\mathbf{c}_k$ are incidental velocities 
+defined by $ \mathbf{c}_k \cdot \hat{\mathbf{n}} < 0$ and $\rho_\mathrm{wall}$ and $\mathbf{u}_\mathrm{wall}$ are the density
+and velocity at the wall, respectively. Using these boundary conditions, we get for the slip velocity~\cite{Verhaeghe2009}:
 \begin{equation}
- U_\mathrm{slip}^\mathrm{D} = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2}N_\mathrm{y} G \delta_\mathrm{t} = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{H G}{c} \textrm{, \ } c:=\delta_\mathrm{x} / \delta_\mathrm{t}
+ U_\mathrm{slip}^\mathrm{D} = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2}N_\mathrm{y} G \delta_\mathrm{t} = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{L_0 G}{c} \textrm{, \ } c:=\delta_\mathrm{x} / \delta_\mathrm{t}
 \end{equation}
-where $H$ is the height of the microchannel.
 
 \subsubsection{Diffusive bounce-back boundary conditions}
 Combining the previous two boundary conditions, we get the following general form:
@@ -105,13 +106,13 @@ Combining the previous two boundary conditions, we get the following general for
 \end{equation}
 \begin{equation}
  U_\mathrm{slip}^\mathrm{BD} = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{(1-\beta)}{(1+\beta)} N_\mathrm{y} G \delta_\mathrm{t}
- = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{(1-\beta)}{(1+\beta)} \frac{H G}{c}
+ = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{(1-\beta)}{(1+\beta)} \frac{L_0 G}{c}
 \end{equation}
 that can be reduced in one of the previous pure diffusive or bounce-back boundary conditions.
 Verhaeghe et al.~\cite{Verhaeghe2009} show that, assuming the first-order slip velocity of eq.\,\ref{eq:slip_1order} with $U_\mathrm{slip}^\mathrm{B} = 0$ 
 it holds for the $\beta$:
 \begin{equation}
- \beta = \frac{3\mu - \mathrm{Kn} H c \bar{\rho}_\mathrm{out} }{3\mu + \mathrm{Kn} H c \bar{\rho}_\mathrm{out} }
+ \beta = \frac{3\mu - \mathrm{Kn} L_0 c \bar{\rho}_\mathrm{out} }{3\mu + \mathrm{Kn} L_0 c \bar{\rho}_\mathrm{out} }
  \label{eq:betaBD}
 \end{equation}
 In the equation~\ref{eq:betaBD}, an assumption is hidden: the viscosity $\mu$ must be constant, something that
@@ -122,10 +123,10 @@ they point out that this is not valid in higher Knudsen numbers.
 \subsubsection{Specular reflective bounce-back boundary conditions}
 The specular reflective boundary conditions (also known as ``free-slip'') maintain the
 tangential momentum and reverse the perpendicular one. Combining them with the bounce-back boundary
-conditions we get similarly:
+conditions we get similarly~\cite{Verhaeghe2009}:
 \begin{equation}
  U_\mathrm{slip}^\mathrm{BR} = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{(1-\beta)}{\beta} N_\mathrm{y} G \delta_\mathrm{t}
- = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{(1-\beta)}{\beta} \frac{H G}{c}
+ = U_\mathrm{slip}^\mathrm{B} + \frac{3}{2} \frac{(1-\beta)}{\beta} \frac{L_0 G}{c}
 \end{equation}
 
 
