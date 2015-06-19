@@ -29,13 +29,13 @@ and $\mathbf{F}$ the external forcing term. In the MRT case, the collision opera
 is:
 \begin{equation}
  \mathbf{\Omega} = - \mathrm{M}^{-1} \cdot \mathrm{S} \cdot [\mathbf{m} - \mathbf{m}^\mathrm{(eq)}] 
- \textrm{ , where }
+ \textrm{ , \ }
  \mathbf{m} = \mathrm{M} \cdot \mathbf{f}
 \end{equation}
-where $\mathbf{m}$ is the moment space (and $\mathbf{m}^\mathrm{(eq)}$ their equilibria), $\mathrm{S}$ a positive-definite matrix of
+where $\mathbf{m}$ is the moment space (and $\mathbf{m}^\mathrm{(eq)}$ the respective equilibria), $\mathrm{S}$ a positive-definite matrix of
 the relaxation rates and $\mathrm{M}$ the matrix that transforms $\mathbf{f}$ to
 their moments~\cite{Verhaeghe2009}.
-In this formulation, every moment relaxes with a different rate and 
+In this formulation, every moment relaxes with a different rate and, 
 with appropriate selection of the $\mathrm{S}$, the MRT method can be reduced to a TRT scheme
 or the BGK approximation.
 
@@ -75,7 +75,7 @@ momentum is reversed:
 \end{equation}
 In this context, the slip velocity can be set as~\cite{Verhaeghe2009}:
 \begin{equation}
- U_\mathrm{slip}^\mathrm{B} = \frac{1}{4} \Big(\frac{8}{\tau_s} - \frac{8-\tau_s}{2-\tau_s} \Big) G \delta_\mathrm{t}
+ U_\mathrm{slip}^\mathrm{B} = \frac{1}{4} \Big(\frac{8}{\tau_q} - \frac{8-\tau_s}{2-\tau_s} \Big) G \delta_\mathrm{t}
 \end{equation}
 where $\tau_s$, $\tau_q$ are the relaxation rates for the stresses and the energy fluxes, respectively.
 For a boundary parallel to the lattice axis, $U_\mathrm{slip}^\mathrm{B} = 0$ if

@@ -5,3 +5,9 @@
 *.out
 *.backup
 sectiontemplate.tex
+*.kate-swp
+*.nav
+*.snm
+*.toc
+template-pdflatex.tex
+*.synctex.gz
